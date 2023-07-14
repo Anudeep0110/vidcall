@@ -1,38 +1,234 @@
-.App {
+.outer-container {
+  display: flex;
+  position: relative;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-size: cover;
+  color: white;
+  flex-direction: column;
+  overflow: hidden;
+}
+        
+.navbrand {
+  text-decoration: overline;
+  font-family: 'Monoton';
+}
+
+.outer-container::before{
+  position: absolute;
+  background-color: #161313;
+  background-image:radial-gradient(circle closest-side,#ff9900,#070606);
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  content: '';
+  z-index: -100;
+  filter: blur(100px);
+  transform: scale(1.5);
+}
+
+.home {
+  min-width: 100vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vmin;
+  position: fixed;
+}
+
+.home p:nth-child(1) {
+  font-size: 5vmin;
+  margin-bottom: .5px;
+  font-family: 'Capriola';
+}
+
+.home p:nth-child(2) {
+  font-size: 15vmin;
+  font-family: 'Monoton';
+  margin-block: .5px;
+}
+
+.home p:nth-child(3) {
+  margin-top: 0px;
+  font-size: 3vmin;
+  font-family: "Bruno Ace SC";
+}
+
+.home p:nth-child(4) {
+  font-size: 2.5vmin;
+  width: 75%;
+  text-align: center;
+  line-height: 5vmin;
+  font-family: 'Capriola';
+}
+
+.start-meet {
+  margin-top: 12vmin;
+  display: flex;
+  justify-content: center;
+  padding: 3vmin
+}
+
+.button {
+  border: 2px solid rgb(255, 255, 255);
+  background-color: transparent;
+  color: white;
+  font-family: 'Bruno Ace SC';
+  padding: 1vmin;
+  margin-inline: 3vmin;
+}
+
+.button:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  box-shadow: 0px 0px 30px 10px rgba(255,255,255,.3);
+  border: none;
+  scale: 1.1;
+}
+
+.instant-meet {
+  font-size: 2.5vmin;
+  font-family: 'QuickSand';
+  font-weight: 600;
+  cursor: pointer;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.line {
+  height: 2px;
+  background-color: black;
+  width: 75%;
+  margin-inline: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.instant-meet:hover{
+  color: #ba7001;
 }
 
-.App-header {
-  background-color: #282c34;
+
+.meet {
+  display: flex;
+  position: relative;
+  min-width: 100vw;
   min-height: 100vh;
+  background-size: cover;
+  color: white;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.meet::before {
+  position: absolute;
+  background-color: #161313;
+  background-image:radial-gradient(circle closest-side,#032b5f,#070606);
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  content: '';
+  z-index: -100;
+  filter: blur(100px);
+  transform: scale(1.5);
+}
+
+
+
+.linkto {
+  cursor: pointer;
+}
+
+.videos-outer {
+  height: 100vh;
+  width: 75vw;
+  flex: 1;
+  margin: 0;
+  position: relative;
+  border: 1px solid white;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.videos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.video {
+  flex: 1;
+  height: inherit;
+  border: 1px solid purple;
+}
+
+.meet-details {
+  width: 100%;
+  border: 2px solid red;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 5vmin;
+  padding-block: 2vmin;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-wrap: wrap;
+}
+
+.meet-id {
+  font-size: 20px;
+  font-family: 'QuickSand';
+}
+
+.calling-form {
+  display: flex;
+  gap: 3vmin;
+  flex-wrap: wrap;
+}
+
+.calling-input {
+  background-color: transparent;
+  border: 1px solid white;
+  height: 40px;
+  width: 200px;
+  color: white;
+  font-family: 'QuickSand';
+  padding-inline: 10px;
+  
+}
+
+.calling-input::placeholder {
+  font-family: 'QuickSand';
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn {
+  width: 120px;
+  border-radius: 0px;
+  font-size: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.video-footer {
+  width: 100%;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 3vmin;
+  bottom: 0;
+  position: absolute;
+  padding-block: 10px;
+  border: 1px solid white;
 }
+
+.icon-div {
+  border-radius: 50%;
+  background-color: white;
+  width: 50px;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
