@@ -35,6 +35,7 @@ const Meet = () => {
 	const connectionRef = useRef(null)
 
   useEffect(() => {
+    console.log("Switch ON");
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
       setStream(stream);
       // if (myVideo.current) {
@@ -44,7 +45,6 @@ const Meet = () => {
 
     socket.on("me", (id) => {
         setMe(id)
-        console.log("Switch On");
     })
 
 		socket.on("callUser", (data) => {
@@ -56,7 +56,7 @@ const Meet = () => {
 			setCallerSignal(data.signal)
 		})
     //eslint-disable-next-line
-	}, [])
+	}, [stream])
 
 	const callUser = (e,id) => {
     console.log("Called");
