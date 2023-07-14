@@ -37,9 +37,9 @@ const Meet = () => {
   useEffect(() => {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
       setStream(stream);
-      if (myVideo.current) {
+      // if (myVideo.current) {
         myVideo.current.srcObject = stream;
-      }
+      // }
     });
 
     socket.on("me", (id) => {
