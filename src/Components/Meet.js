@@ -29,7 +29,7 @@ const Meet = () => {
 	const [ callAccepted, setCallAccepted ] = useState(false)
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
-	const [ re, setRe] = useState(true)
+	const [ re, setRe] = useState(0)
 	const [ name, setName ] = useState("Anudeep")
 	const myVideo = useRef(null)
 	const userVideo = useRef(null)
@@ -38,8 +38,8 @@ const Meet = () => {
 
   useEffect(() => {
     console.log("Switch ON");
-    if(re){
-      setRe(false)
+    if(re<2){
+      setRe(re+1)
       navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
         setStream(stream);
         if (stream) {
