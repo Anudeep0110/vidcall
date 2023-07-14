@@ -4,7 +4,7 @@ const app = express()
 const server = http.createServer(app)
 const io = require("socket.io")(server, {
 	cors: {
-		origin: "https://vidcall-ebon.vercel.app/",
+		origin: "http://localhost:3000",
 		methods: [ "GET", "POST" ]
 	}
 })
@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
 	})
 
 	socket.on("callUser", (data) => {
+		console.log("Called");
 		io.to(data.userToCall).emit("callUser", { signal: data.signalData, from: data.from, name: data.name })
 	})
 

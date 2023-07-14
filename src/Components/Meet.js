@@ -16,7 +16,8 @@ import {
 } from 'mdb-react-ui-kit';
 
 
-const socket = io.connect('https://vidcall-4ffd.onrender.com');
+const socket = io.connect('http://localhost:5000');
+
 
 const Meet = () => {
 
@@ -41,19 +42,24 @@ const Meet = () => {
       }
     });
 
-	socket.on("me", (id) => {
-			setMe(id)
-		})
+    socket.on("me", (id) => {
+        setMe(id)
+    })
 
 		socket.on("callUser", (data) => {
+      console.log("Calling");
+      toggleShow()
 			setReceivingCall(true)
 			setCaller(data.from)
 			setName(data.name)
 			setCallerSignal(data.signal)
 		})
+    //eslint-disable-next-line
 	}, [])
 
 	const callUser = (e,id) => {
+    console.log("Called");
+    e.preventDefault()
 		const peer = new Peer({
 			initiator: true,
 			trickle: false,
@@ -79,25 +85,6 @@ const Meet = () => {
 
 		connectionRef.current = peer
 	}
-
-	// const answerCall =() =>  {
-	// 	setCallAccepted(true)
-  //   setCentredModal(false)
-	// 	const peer = new Peer({
-	// 		initiator: false,
-	// 		trickle: false,
-	// 		stream: stream
-	// 	})
-	// 	peer.on("signal", (data) => {
-	// 		socket.emit("answerCall", { signal: data, to: caller })
-	// 	})
-	// 	peer.on("stream", (stream) => {
-	// 		userVideo.current.srcObject = stream
-	// 	})
-
-	// 	peer.signal(callerSignal)
-	// 	connectionRef.current = peer
-	// }
 
   const answerCall = () => {
     setCallAccepted(true);
@@ -136,13 +123,13 @@ const Meet = () => {
               <div className='meet-details'>
                 <p className='meet-id'>Meet-ID : 
                 <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-                  <p>{me}</p>
+                  <span>{me}</span>
                 </CopyToClipboard>
                 </p>
                 <form onSubmit={(e) => callUser(e,idToCall)}>
                   <div className='calling-form'>
                       <input type='text' className='calling-input' placeholder='caller-id' onChange={e => setIdToCall(e.target.value)}></input>
-                      <button className='btn btn-success' onClick={(e) => callUser(e,idToCall)}>Call</button>
+                      <button className='btn btn-success'>Call</button>
                   </div>
                 </form>
               </div>
