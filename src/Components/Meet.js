@@ -38,11 +38,11 @@ const Meet = () => {
     console.log("Switch ON");
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
       setStream(stream);
-      // if (myVideo.current) {
-        myVideo.current.srcObject = stream;
-      // }
     });
-
+    
+    if (stream) {
+      myVideo.current.srcObject = stream;
+    }
     socket.on("me", (id) => {
         setMe(id)
     })
@@ -56,7 +56,7 @@ const Meet = () => {
 			setCallerSignal(data.signal)
 		})
     //eslint-disable-next-line
-	}, [stream])
+	}, [])
 
 	const callUser = (e,id) => {
     console.log("Called");
