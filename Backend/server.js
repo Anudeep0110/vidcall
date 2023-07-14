@@ -4,10 +4,10 @@ const app = express()
 const server = http.createServer(app)
 const io = require("socket.io")(server, {
 	cors: {
-		origin: "https://vidcall-ebon.vercel.app/",
-		methods: [ "GET", "POST" ]
+	  origin: "https://vidcall-ebon.vercel.app",
+	  methods: ["GET", "POST"]
 	}
-})
+  });
 
 io.on("connection", (socket) => {
 	socket.emit("me", socket.id)
