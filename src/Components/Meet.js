@@ -44,6 +44,7 @@ const Meet = () => {
 
     socket.on("me", (id) => {
         setMe(id)
+        console.log("Switch On");
     })
 
 		socket.on("callUser", (data) => {
