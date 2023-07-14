@@ -16,7 +16,7 @@ import {
 } from 'mdb-react-ui-kit';
 
 
-const socket = io.connect('http://localhost:5000');
+const socket = io.connect('https://vidcall-4ffd.onrender.com');
 
 const Meet = () => {
 
