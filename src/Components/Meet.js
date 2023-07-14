@@ -29,20 +29,25 @@ const Meet = () => {
 	const [ callAccepted, setCallAccepted ] = useState(false)
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
+	const [ re, setRe] = useState(true)
 	const [ name, setName ] = useState("Anudeep")
 	const myVideo = useRef(null)
 	const userVideo = useRef(null)
 	const connectionRef = useRef(null)
 
+
   useEffect(() => {
     console.log("Switch ON");
-		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-      setStream(stream);
-    });
-    
-    if (stream) {
-      myVideo.current.srcObject = stream;
+    if(re){
+      setRe(false)
+      navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
+        setStream(stream);
+        if (stream) {
+          myVideo.current.srcObject = stream;
+        }
+      });
     }
+    
     socket.on("me", (id) => {
         setMe(id)
     })
@@ -56,7 +61,7 @@ const Meet = () => {
 			setCallerSignal(data.signal)
 		})
     //eslint-disable-next-line
-	}, [])
+	}, [stream,re])
 
 	const callUser = (e,id) => {
     console.log("Called");
