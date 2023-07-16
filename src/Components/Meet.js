@@ -16,7 +16,7 @@ import {
 } from 'mdb-react-ui-kit';
 
 
-const socket = io.connect('https://vidcall-4ffd.onrender.com');
+const socket = io.connect('http://localhost:5000');
 
 
 const Meet = () => {
@@ -31,6 +31,9 @@ const Meet = () => {
 	const [ callEnded, setCallEnded] = useState(false)
 	const [ re, setRe] = useState(0)
 	const [ name, setName ] = useState("Anudeep")
+  const [video,setvOn] = useState(true)
+	const [mic,setmOn] = useState(true)
+	const [mflag,setmFlag] = useState(false)
 	const myVideo = useRef(null)
 	const userVideo = useRef(null)
 	const connectionRef = useRef(null)
@@ -38,14 +41,22 @@ const Meet = () => {
 
   useEffect(() => {
     console.log("Switch ON");
-    if(re<2){
-      setRe(re+1)
-      navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-        setStream(stream);
-        if (stream) {
-          myVideo.current.srcObject = stream;
-        }
-      });
+    if (re < 2) {
+      setRe(re + 1);
+      const constraints = { video: video, audio: mic };
+      if (!video && !mic) {
+        constraints.video = false;
+      }
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+          setStream(stream);
+          if (myVideo.current && !mflag) {
+            myVideo.current.srcObject = stream;
+          }
+        })
+        .catch((error) => {
+          console.error('Error accessing media devices:', error);
+        });
     }
     
     socket.on("me", (id) => {
@@ -61,7 +72,7 @@ const Meet = () => {
 			setCallerSignal(data.signal)
 		})
     //eslint-disable-next-line
-	}, [stream,re])
+	}, [stream,re,video,mic])
 
 	const callUser = (e,id) => {
     console.log("Called");
@@ -80,7 +91,7 @@ const Meet = () => {
 			})
 		})
 		peer.on("stream", (stream) => {
-			
+			if(userVideo.current)
 				userVideo.current.srcObject = stream
 			
 		})
@@ -114,9 +125,11 @@ const Meet = () => {
   };
 
 	const leaveCall = () => {
-		setCallEnded(true)
-		connectionRef.current.destroy()
-	}
+    setCallEnded(true);
+    if (connectionRef.current && connectionRef.current.destroy) {
+      connectionRef.current.destroy();
+    }
+  };
 
   const [centredModal, setCentredModal] = React.useState(false);
   const toggleShow = () => setCentredModal(!centredModal);
@@ -150,8 +163,8 @@ const Meet = () => {
                 </div>
               </div>
               <div className='video-footer'>
-                    <button className='icon-div'><FiVideoOff className='text-dark'/></button>
-                    <button className='icon-div'><BsMicMute className='text-dark'/></button>
+                    <button className='icon-div' onClick={() => {setvOn(!video) ;setRe(0)}}><FiVideoOff className='text-dark'/></button>
+                    <button className='icon-div' onClick={() => {setmOn(!mic);setRe(0);setmFlag(true)}}><BsMicMute className='text-dark'/></button>
                     <button className='icon-div'><BsRecordCircle className='text-dark'/></button>
                     <button className='icon-div' onClick={leaveCall}><FcEndCall className='text-light'/></button>
               </div>

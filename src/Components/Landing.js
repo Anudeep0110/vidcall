@@ -15,7 +15,8 @@ const Landing = () => {
 
   const [centredModal, setCentredModal] = React.useState(false);
   const toggleShow = () => setCentredModal(!centredModal);
-
+  const [joinModal, setJoinModal] = React.useState(false);
+  const toggleJoin = () => setJoinModal(!joinModal);
 
   return (
     <>
@@ -28,7 +29,7 @@ const Landing = () => {
               <p>Video conferencing made easy. Connect with anyone, anywhere, anytime with our secure and reliable platform. Our video conferencing software is easy to use and affordable, making it the perfect solution for businesses of all sizes.</p>
               <div className='start-meet'>
                   <button className='button' onClick={toggleShow}>Start a Meet</button>
-                  <button className='button'>Join a Meet</button>
+                  <button className='button' onClick={toggleJoin}>Join a Meet</button>
               </div>
             </div>
         </div>
@@ -41,6 +42,21 @@ const Landing = () => {
             </MDBModalHeader>
             <MDBModalBody>
                 <p className='instant-meet' onClick={() => window.location.replace('/meet')}>Start a Instant Meet</p>
+                <div className='line'></div>
+                <p className='instant-meet mt-3'>Schedule a Meet</p>
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+      <MDBModal tabIndex='-1' show={joinModal} setShow={setJoinModal}>
+        <MDBModalDialog centered>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Start the Meet</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={toggleJoin}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+                <input className='form-input'></input>
                 <div className='line'></div>
                 <p className='instant-meet mt-3'>Schedule a Meet</p>
             </MDBModalBody>
